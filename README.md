@@ -89,10 +89,8 @@ npm start
         - Verificar se `id` do produto existe. Se não, deve responder com **status 404**
     - ***Response Sucess:* status 200**
 - **Categorias e Tipos existentes**
-    - Categorias
-        
-       - Categorias
-    
+   
+- Categorias
     
     | id | category_name |
     | --- | --- |
@@ -102,7 +100,6 @@ npm start
     | 4 | Doces |
     | 5 | Massas |
 - Tipos
-    
     
     | id | type_name |
     | --- | --- |
@@ -114,3 +111,59 @@ npm start
     | 6 | Calabresa |
     | 7 | Mussarela |
     | 8 | Presunto |
+
+## TABLE STRUCTE 
+
+- Products
+    
+    ```jsx
+    CREATE TABLE products(
+    	id serial primary key,
+    	product_name varchar(150) NOT NULL UNIQUE  ,
+    	price INT NOT NULL,
+    	description varcahr(250),
+    	available BOOLEAN CHECK (available IN ('true','false')) NOT NULL,
+    	ingredients varcahr(250)
+    );
+    ```
+
+- Category
+    
+    ```jsx
+    CREATE TABLE category (
+    	id SERIAL PRIMARY KEY,
+    	category_name varchar(50) NOT NULL UNIQUE
+    )
+    ```
+
+- Type
+    
+    ```jsx
+    CREATE TABLE type(
+    	id SERIAL PRIMARY KEY,
+    	type_name varchar(50) NOT NULL UNIQUE
+    )
+    ```
+
+- Product_Category
+    
+    ```jsx
+    CREATE TABLE product_category(
+    	id SERIAL PRIMARY KEY,
+    	product_id INT,
+    	category_id INT,
+    	FOREIGN KEY (product_id) REFERENCES products(id),
+    	FOREIGN KEY (category_id) REFERENCES category(id)
+    )
+    ```
+    
+- Product_Type
+    ```jsx
+    CREATE TABLE product_type(
+        id SERIAL PRIMARY KEY,
+        product_id INT,
+        type_id INT,
+        FOREIGN KEY (product_id) REFERENCES products(id),
+        FOREIGN KEY (type_id) REFERENCES type(id)
+    )
+    ```
